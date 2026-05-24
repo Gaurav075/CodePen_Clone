@@ -17,13 +17,15 @@ function App() {
   // --- NEW AUTHENTICATION STATE ---
   const [user, setUser] = useState(null);
 
-  // Listen for user login/logout automatically
+ // Listen for user login/logout automatically
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       if (currentUser) fetchFromCloud(currentUser.uid);
     });
+    
     return () => unsubscribe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
